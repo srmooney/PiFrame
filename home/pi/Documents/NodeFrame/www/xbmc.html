@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Now Playing</title>
+<!--<link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" />-->
+<link href="inc/style/base.css" rel="stylesheet" />
+<script src="/socket.io/socket.io.js"></script>
+<script src="/inc/js/controller.js"></script>
+<script>
+/*
+var socket = io.connect();
+var data = null;
+socket.on('XBMC.NowPlaying', function(dataIn){
+	console.log('XBMC.NowPlaying', dataIn, {result: dataIn});
+	//if (!isRendered && data){
+	//	parseData({result: dataIn});
+	//}
+	data = {result: dataIn};
+});
+*/
+var module = (function(){
+	var isRendered = false;
+	
+	function init(callback){
+		yepnope({
+			load: [
+				'/inc/js/handlebars.min.js',
+				'http://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/1.5.0/jquery.waitforimages.js'
+			],
+			complete: function(){
+				load();
+			}
+		});
+	}
+	
+	function getImagePath(rawPath){
+		if (!rawPath || rawPath == '') { return ''; }
+		var path = rawPath.replace('image://','');
+		path = path.substring(0, path.length - 1);
+		path = decodeURIComponent(path);
+		//thumbnail: "image://http%3a%2f%2fthetvdb.com%2fbanners%2fepisodes%2f80379%2f363199.jpg/"
+		return path;
+	}
+
+	function durationToString(duration) {
+		var total_seconds = duration || 0,
+			seconds = total_seconds % 60,
+			minutes = Math.floor(total_seconds / 60) % 60,
+			hours = Math.floor(total_seconds / 3600),
+			result = ((hours > 0 && ((hours < 10 ? '0' : '') + hours + ':')) || '');
+		result += (minutes < 10 ? '0' : '') + minutes + ':';
+		result += (seconds < 10 ? '0' : '') + seconds;
+		return result;
+	}
+
+	
+	function parseData(data){
+		data.result.item.runtime = durationToString(data.result.item.runtime);
+									
+		/* add season and episode to title if tv show */
+		if (data.result.item.type == 'episode'){
+			data.result.item.thumbnail = getImagePath(data.result.item.art['tvshow.poster']);
+			data.result.item.art.fanart = getImagePath(data.result.item.art['tvshow.fanart']); 
+			data.result.item.airDate = data.result.item.firstaired;
+			if (data.result.item.season >= 0 && data.result.item.episode >= 0) {
+				data.result.item.subTitle = data.result.item.season + 'x' + data.result.item.episode + ' ' + data.result.item.title;
+				data.result.item.title = data.result.item.showtitle;
+			}
+		}
+		else {
+			data.result.item.thumbnail = getImagePath(data.result.item.art['poster']);
+			data.result.item.art.fanart = getImagePath(data.result.item.art.fanart);
+			data.result.item.airDate = data.result.item.year;
+		}
+		
+		renderData(data.result.item);
+	}
+
+	function renderData(data){
+		//console.log('renderData', data);
+		isRendered = true;
+		var video = $('#video').show();
+		var template = video.html().replace('<!--', '').replace('-->', '');
+		video.html(Handlebars.compile(template)(data));//.fadeIn();
+		video.waitForImages(function(){
+			controller.loading(false);
+		});		
+	}
+	
+	var puased = false;
+	function renderTime(){
+	
+	}
+	
+	function updateTime(paused){
+		paused = paused;
+		renderTime();
+	}
+
+	function getData(){
+		$.ajax({
+			url: '/nowplaying',
+			success: function(data){
+				console.log(data);
+				parseData({result: data});
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				//console.log('error',jqXHR, textStatus, errorThrown);
+				window.config.mockjax = true;
+				load();
+			}
+		});	
+	}	
+
+	function load(){
+		console.log('load');
+		Handlebars.registerHelper('toSentance', function(context, block) { var ret = ''; for(var i=0, j=context.length; i<j; i++) { ret = ret + block.fn(context[i]); if (i<j-1) { ret += ', '; }; } return ret; });
+		/*
+		if (!isRendered && data != null){
+			console.log('data found');
+			//parseData({result: data});
+			parseData(data);
+		}
+		*/
+
+		getData();
+		
+		var socket = io.connect();
+		socket.on('XBMC.Play', function(data){
+			console.log('XBMC.Play', data);
+			
+		}).on('XBMC.Pause', function(data){
+			console.log('XBMC.Pause', data);
+			//updateTime(true);
+
+		}).on('XBMC.Stop', function(data){
+			console.log('XBMC.Stop', data);
+			//controler.goto(0);
+
+		}).on('connect', function(data){
+			console.log('connect');
+			//socket.emit('server', {action: 'NowPlaying'});			
+		});
+		
+		
+		//controller.pause();
+		console.log('test');
+		/*
+		xbmc.nowPlaying(function(data){ console.log('data',data); renderData(data.result.item); });
+		xbmc.isPlaying(function(data){
+				if (!data){ controller.next(); }
+				else { 
+					checkPlaying(); 
+					xbmc.nowPlaying(function(data){ console.log('data',data); renderData(data.result.item); });
+				}
+		});
+		*/			
+	}
+
+	return { init: init	}
+}());
+</script>
+<style>
+#video { display: none; position: relative; z-index: 1; height: 100%; box-sizing: border-box; overflow: hidden; background: #666; padding: 30px; padding-left: 460px; color: #333; font-size: 21px; overflow: hidden; }
+#video * { line-height: 1.5em; }
+#video > * { position: relative; z-index: 100; }
+#video .cover { float: left; margin-left: -430px; border-radius: 10px; box-shadow: 4px 4px 10px rgba(0,0,0,.5); border: solid 3px #000; position: relative; z-index: 100; display: block; overflow: hidden; }
+#video .cover:after { content: ""; display: block; position: absolute; z-index: 102; top: 0; left: 0; bottom: 0; right: 0; background-image: linear-gradient(-65deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 51.1%); }
+#video .details { background: rgba(255,255,255,.9); padding: 20px; border-radius: 10px; height: 94%; box-shadow: 4px 4px 10px rgba(0,0,0,.5);}
+#video .fanart { display: block; position: absolute; z-index: 1; top: 0; left: -220px; opacity: .4; height: 100%; }
+#video .nowplaying { position: absolute; z-index: 102; left: 30px; bottom: 20px; font-size: 60px; font-weight: bold; width: 400px; text-align: center; color:#000; text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white, 0 0 10px rgba(255,255,255,.5); }
+#video .plot { height: 384px; overflow: hidden; /* overflow-y: -webkit-marquee; 	-webkit-marquee-direction: up; -webkit-marquee-style: scroll; -webkit-marquee-speed: slow; */ }
+h1,h2,h3, p { margin: 0; }
+p { margin-bottom: 1em; }
+</style>
+</head>
+
+<body>
+<div id="page">
+    <div id="video" style="display:none;">
+    	<!--
+        <div class="nowplaying">Now Playing</div>
+        <div class="cover">
+        	<img src="{{thumbnail}}" width="400" />
+        </div>
+        <div class="details">
+            <h1>{{title}}</h1>
+            <h2>{{subTitle}}</h2>
+            <h3>{{airDate}}</h3>
+            <p><strong>Runtime: </strong>  {{runtime}} min</p>
+            {{#if genre}}
+            <p><strong>Genre: </strong> 
+                {{#toSentance genre}}{{this}}{{/toSentance}}
+            </p>
+            {{/if}}
+            {{#if director}}
+            <p><strong>Director: </strong> 
+                {{#toSentance director}}{{this}}{{/toSentance}}
+            </p>
+            {{/if}}
+            <div class="plot">
+            <p>{{plot}}</p>
+            </div>     
+        </div>
+        <img src="{{art.fanart}}" class="fanart" />
+        -->
+    </div>
+<!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" name="spacer" class="cover" />-->
+</div>
+</body>
+</html>

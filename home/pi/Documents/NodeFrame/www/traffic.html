@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Traffic</title>
+<link href="inc/style/base.css" rel="stylesheet" />
+<style>
+#page { background: transparent; width: 1248px; margin: 0 auto; }
+.feedImage img { position: relative; top: -25px; width: 100%;  }
+.feedImage { position: relative; z-index: 1; overflow: hidden; float: left; width: 50%; height: 390px; background: #000;  }
+.feedImage span { display: block; font-size: 14px; position: absolute; z-index: 100; color: red; left: 0; bottom: -3px; right: 0; padding: 2px 0; color: #FFF; text-align: center; font-size: 20px; text-shadow: 0 0 5px rgba(0,0,0,.7); background: #000; }
+</style>
+<script src="inc/js/controller.js"></script>
+<script>
+var module = (function(){
+	var feedUpdateInterval = 2;
+	var intervalId = null;
+	var cameraUrls = [
+		{ name:'SR-8 @ Barlow', url:'http://cmhimg01.dot.state.oh.us/images/CLE/CLE044-L.jpg'},
+		{ name:'SR-8 @ Steels Corner', url:'http://cmhimg01.dot.state.oh.us/images/CLE/CLE038-L.jpg'},
+		{ name:'SR-8 @ Graham', url:'http://cmhimg01.dot.state.oh.us/images/CLE/CLE036a-L.jpg'},
+		{ name:'SR-8 @ Front Street', url:'http://cmhimg01.dot.state.oh.us/images/CLE/CLE032-L.jpg'}
+	];
+	
+	function refreshImage() {
+		$('.feedImage img').each(function(index,element){
+			var imgSrc = $(this).attr("src").split("?")[0];
+			$(this).attr("src", imgSrc + "?" + new Date());	
+		});		
+	}
+	
+	function init(callback){
+		load();
+	}
+	
+	function load(){
+		$(function(){
+			controller.loading(false);
+			var html = [];
+			$.each(cameraUrls, function(index,value){
+				html.push('<div class="feedImage feedImage-'+ index +'"><img src="'+ value.url +'" /><span>'+  value.name +'</span>');				
+			});
+			$('#page .feedImages').append(html);
+			intervalId = window.setInterval(function() { refreshImage(); }, feedUpdateInterval * 1000);
+		});	
+	}
+	
+	return {
+		init: init
+	}
+}());	
+</script>
+</head>
+
+<body>
+<div id="page">
+<div class="feedImages"></div>
+</div>
+</body>
+</html>

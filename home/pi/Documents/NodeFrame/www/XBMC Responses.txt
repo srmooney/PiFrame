@@ -1,0 +1,5 @@
+{"jsonrpc":"2.0","method":"Player.OnSeek","params":{"data":{"item":{"id":861,"type":"movie"},"player":{"playerid":1,"seekoffset":{"hours":0,"milliseconds":0,"minutes":0,"seconds":-30},"speed":1,"time":{"hours":0,"milliseconds":15,"minutes":19,"seconds":14}}},"sender":"xbmc"}}
+
+{"jsonrpc":"2.0","method":"Player.OnPause","params":{"data":{"item":{"id":861,"type":"movie"},"player":{"playerid":1,"speed":0}},"sender":"xbmc"}}
+
+{"jsonrpc":"2.0","method":"Player.OnPlay","params":{"data":{"item":{"id":861,"type":"movie"},"player":{"playerid":1,"speed":1}},"sender":"xbmc"}}

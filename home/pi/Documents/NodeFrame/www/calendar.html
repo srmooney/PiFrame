@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Calendar</title>
+<link href="inc/style/base.css" rel="stylesheet" />
+<style>
+.loading { position: absolute; top: 5px; right: 5px; }
+#full-calendar { width: 1240px; margin: 0 auto; }
+h2 { padding-top: 10px; margin: 0; }
+#page .holiday {background-color: #0C6; border-color: #0C6; }
+#page .birthday {background-color: #069; border-color: #069; }
+</style>
+<script src="inc/js/controller.js"></script>
+<script>
+var module = (function(){
+	var birthdays = [];
+	var holidays = [];
+	var events = [];
+	function init(callback){
+		yepnope({
+			load: [
+				'/inc/style/fullcalendar.min.css',
+				'/inc/js/moment.min.js',
+				'/inc/js/fullcalendar.min.js'
+			],
+			complete: function(){ getData(load); }
+		});
+	}
+	
+	function errorHandler(e){ console.log(e.status +' '+e.statusText); }
+	
+	function getData(callback){
+		//storeWithExpiration.expire('events');
+
+		//Get from storage
+		var data = storeWithExpiration.get('events');
+		/**/
+		if (data) {
+			console.log('get from local storage');
+			holidays = data.holidays;
+			birthdays = data.birthdays;
+			events = data.events;
+			callback();
+			return;
+		}					
+		console.log('get from remote');
+		$.when(
+			$.ajax({
+				//url: 'http://www.google.com/calendar/feeds/usa%40holiday.calendar.google.com/public/full?alt=json',
+				//url: '/events/en.usa#holiday@group.v.calendar.google.com',
+				url: '/events/usa@holiday.calendar.google.com',
+				type: 'GET',
+				dataType: 'json',
+				error: errorHandler
+			}),
+			$.ajax({
+				//url: 'https://www.google.com/calendar/feeds/srmooney%40gmail.com/private-d1e7285cc53b9c42eddbd38bfe5db539/full?alt=json',
+				url: '/events/srmooney@gmail.com',
+				type: 'GET',
+				dataType: 'json',
+				error: errorHandler
+			}),
+			$.ajax({
+				//url: 'https://www.google.com/calendar/feeds/t0a03vqv4n6aps1d7emds2u3s4%40group.calendar.google.com/private-e8f57ea36c26db36d4bc56e1bd0d672b/full?alt=json&max-results=500&futureevents=true',
+				url: '/events/t0a03vqv4n6aps1d7emds2u3s4@group.calendar.google.com',
+				type: 'GET',
+				dataType: 'json',
+				error: errorHandler
+			})
+		).done(
+			function(response1, response2, response3){
+				/* Holidays */
+				var data1 = response1[0];
+				//console.log('data1',data1);
+				parseGoogle(data1, holidays, 'holiday');
+				
+				/* Events */
+				var data2 = response2[0];
+				//console.log('data2',data2);
+				parseGoogle(data2, events, 'event');
+				
+				/* Birthdays */
+				var data3 = response3[0];
+				//console.log('data3',data3);
+				parseGoogle(data3, birthdays, 'birthday');
+				//console.log('birthdays',birthdays);
+				
+				/* Add to cache */
+				var expire = (Date.today().addDays(1) - Date.today());
+				storeWithExpiration.set('events', {events: events, holidays: holidays, birthdays: birthdays}, expire);
+				
+				callback();
+				
+		}).fail(function(){
+			console.log('fail');
+				//location.reload(true);
+		});		
+	}
+	
+	function parseGoogle(data, result, className){
+		if (!data || !data.items){ return; }
+		$.each(data.items, function(index,entry){
+			if (entry['start']){
+				var startStr = entry['start']['date'];
+				var start = startStr;
+				var end = entry['end']['date'];
+				var allDay = startStr.indexOf('T') == -1;
+				
+				result.push({
+					id: entry['id'],
+					title: entry['summary'].replace('\'s Birthday',''),
+					start: start,
+					end: end,
+					allDay: allDay,
+					//location: entry['gd$where'][0]['valueString'],
+					//description: entry['description'],
+					className: className
+				});
+			}
+		});	
+	}
+	
+	
+//	function parseGoogle(data, result, className){
+//		$.each(data.feed.entry, function(index,entry){
+//			if (entry['gd$when']){
+//				var startStr = entry['gd$when'][0]['startTime'];
+//				var start = $.fullCalendar.parseISO8601(startStr, true);
+//				var end = $.fullCalendar.parseISO8601(entry['gd$when'][0]['endTime'], true);
+//				var allDay = startStr.indexOf('T') == -1;
+//				
+//				if (allDay) { $.fullCalendar.addDays(end, -1); } 
+//				result.push({
+//					id: entry['gCal$uid']['value'],
+//					title: entry['title']['$t'].replace('\'s Birthday',''),
+//					start: start,
+//					end: end,
+//					allDay: allDay,
+//					location: entry['gd$where'][0]['valueString'],
+//					description: entry['content']['$t'],
+//					className: className
+//				});
+//			}
+//		});	
+//	}
+
+	function load(){
+		controller.loading(false);
+		events.push.apply(events, holidays);
+		var title = 'MMMM YYYY';
+		if (window.location.search.indexOf('birthday') > 0){ events = []; events.push.apply(events, birthdays); title = '[Birthdays ]'+ title; }
+
+		$(function() {
+			var view = 'month';
+			var query = window.location.search;
+			if (query.indexOf('display=day') > 0){ view = 'basicDay'; }
+			if (query.indexOf('display=week') > 0){ view = 'basicWeek'; }			
+			$('#full-calendar').fullCalendar({
+				aspectRatio: 1.7,
+				header: { left: '', center: 'title', right: '' },
+				editable: false,
+				defaultView: view,
+				events: events,
+				titleFormat: { month: title }
+			});
+		});
+	}
+
+	
+	return {
+		init: init
+	}
+}());
+
+</script>
+</head>
+<body>
+<div id="page">
+    <div class="loading" style="display:none;">loading...</div>
+    <div id="full-calendar"></div>
+</div>
+</body>
+</html>

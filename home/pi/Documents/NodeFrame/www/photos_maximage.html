@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Photos</title>
+<link href="inc/style/base.css" rel="stylesheet" />
+<style>
+body.loading  #page > * { opacity: 0; }
+#page { color: #999; font-family: 'Open Sans'; background: #FFF url(elements/weather/main-border.png) no-repeat 567px 54px; position: relative; z-index: 1; }
+</style>
+<script src="inc/js/controller.js"></script>
+<script>
+var module = (function(){
+	//var indexUrl = '/inc/proxy.ashx?url=http://tower:8080/file_browser?dir=/mnt/user/Media/Pictures/Gallery';
+	//var indexUrl = '/inc/proxy.ashx?url=http://192.168.0.110:8080/file_browser?dir=/mnt/user/Media/Pictures/Gallery';
+	//var indexUrl = '/mnt/Gallery/photos.txt';
+	var indexUrl = '/mnt/Gallery/';
+	var drivePath = 'file:///P:/';
+	var ignore = ['save%20the%20date'];
+	var urls = [];
+	var images = [];
+	var processed = 0;
+	
+	function init(callback){
+		yepnope({
+			load: [
+				'inc/supersized/supersized.css',
+				'inc/js/jquery.easing.min.js',
+				'inc/supersized/supersized.3.2.7.js'
+			],
+			complete: function(){ getData(); }
+		});
+	}
+		
+	function getData(){
+		if (window.location.toString().indexOf('refresh') > 0){
+			storeWithExpiration.expire('photos');
+		}
+		
+		var data = storeWithExpiration.get('photos');
+		if (data) {
+			console.log('get from local storage');
+			images = data;
+			load();
+			return;
+		}
+		
+		console.log('get from remote api');
+		
+		$.ajax({
+			url: indexUrl,
+			success: function(data){
+				console.log(data);
+				images = data.replace(/T:\\Pictures\\/ig, '/mnt/').replace(/\\/ig,'/').split('\n');
+				console.log(images);
+				load();
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log('error',jqXHR, textStatus, errorThrown);
+				window.config.mockjax = true;
+				load();
+			}
+		});
+		
+//		$.get(indexUrl, function(data){
+//			/*
+//			var rows = $(data).find('table').filter(':last').find('tr:gt(1) > td:first-child > a[href]');
+//			rows.each(function(index,value){
+//				if ($.grep(ignore, function(n,i){ return (value.href.indexOf(n) >0); }) == 0){
+//					urls.push(value.href);
+//				}
+//			});
+//			console.log(urls);
+//			$.each(urls, function(index,value){
+//				$.get('/inc/proxy.ashx?url='+ value,processUrl);
+//			});
+//			*/
+//			console.log(data);
+//			images = data.replace(/T:\\Pictures\\/ig, '/mnt/').replace(/\\/ig,'/').split('\n');
+//			console.log(images);
+//			load();
+//		});		
+	}
+	
+	function processUrl(data){
+		processed++;
+		var newImages = $(data).find('table').filter(':last').find('tr:gt(1) > td:first-child > a[href$="JPG"]').map(function(index,element){
+			//return unescape(this.href).replace('http://tower:8080/file_browser?file=/mnt/user/Media/Pictures/', drivePath).replace('/', '\\');
+			//return unescape(this.href).replace('http://tower:8080/file_browser?file=/mnt/user/', 'file://tower/');
+			return unescape(this.href);
+		});
+		$.merge(images, newImages);
+		
+		if (processed >= urls.length){
+			/* save images to local cache */
+			var expire = (Date.today().addDays(1) - Date.today());
+			storeWithExpiration.set('photos', images, expire);
+			load();
+		}
+	}
+	
+	
+	function load(){
+		//console.log('images', images);
+				
+		$(function(){
+			theme = {
+				_init : function(){
+					api.nextSlide();
+				},
+				beforeAnimation: function(){
+					if (!theme.loaded){
+						controller.loading(false);
+						theme.loaded = true;
+					}
+				},
+				afterAnimation: function(){
+					if (vars.is_paused){ api.playToggle(); }
+					if (!vars.is_paused){ theme.progressBar(); }
+				},
+				progressBar: function(){
+					//$('#progress-bar').stop().css({left : -$(window).width()}).animate({ left:0 }, api.options.slide_interval);
+				},
+				loaded: false
+			};
+			
+			if (window.config.mockjax){	
+				var myImages = [
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-1.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-1.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-2.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-3.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-1.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-2.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-3.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-2.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-3.jpg'}
+				];
+			} else {
+				var myImages = [];
+				$.each(images, function(index,value){
+					myImages.push({image: value});
+				});
+			}
+			
+			myImages.sort(function() { return 0.5 - Math.random(); });
+			
+			myImages.length = 100;
+			//console.log('myImages', myImages);
+			/**/
+			$.supersized({
+					autoplay: false,
+					slide_interval          :   window.config.photoInterval,		// Length between transitions
+					transition              :   1, 			// 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+					transition_speed		:	700,		// Speed of transition
+					slide_links				:	false,	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
+					slides 					:  	myImages,
+					keyboard_nav			: 	0,
+					container				:	'#page'	
+			});
+			$('#supersized').appendTo('#page');
+			
+			controller.loading(false);
+
+			window.setTimeOut(function(){window.location = window.location}, 60 * 60 * 1000);
+		});	
+	}
+	
+	return {
+		init: init
+	}
+}());	
+</script>
+</head>
+
+<body>
+<div id="page">
+	<!--Time Bar
+	<div id="progress-back" class="load-item">
+		<div id="progress-bar"></div>
+	</div>-->
+</div>
+</body>
+</html>

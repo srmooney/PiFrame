@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#xinit
+
+xset -dpms	#disable DPMS (Energy Star) Features
+xset s off	#disable screen saver
+xset s noblank	#don't blank the video device
+
+#unclutter &
+#matchbox-window-manager -use_titlebar no & 
+#midori -e Fullscreen -a http://127.0.0.1:8080/photos.html
+#sleep 5 && 
+
+while ! curl -s -o /dev/null http://127.0.0.1:8080/qr?format=str; do
+   sleep 5
+done
+
+while true; do
+	#xinit &
+	unclutter &
+	uzbl-browser -u http://127.0.0.1:8080/photos.html --config /home/pi/uzbl.conf &
+	exec matchbox-window-manager -use_titlebar no
+	sleep 2s;
+done

@@ -1,0 +1,36 @@
+#! /bin/sh
+# /etc/init.d/NodeFrame
+
+### BEGIN INIT INFO
+# Provides:          NodeFrame
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Example initscript
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d.
+### END INIT INFO
+
+# do stuff
+case "$1" in
+	start)
+		echo "starting NodeFrame/server.js"
+		/usr/local/bin/gpio export 13 in
+		/usr/local/bin/gpio -g mode 13 up
+		/usr/local/bin/gpio export 27 in
+		/usr/local/bin/gpio -g mode 27 up
+		/usr/local/bin/node /home/pi/Documents/NodeFrame/server.js >> /home/pi/Documents/NodeFrame/test.log &
+	;;
+	stop)
+		echo "stoping NodeFrame/server.js"
+		killall -9 node
+		#killall -9 chromium
+	;;
+	*)
+		echo "usage: /etc/init.d/NodeFrame {start|stop}"
+		exit 1
+	;;
+esac
+
+exit 0

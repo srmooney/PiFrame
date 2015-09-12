@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Photos</title>
+<link href="inc/style/base.css" rel="stylesheet" />
+<style>
+body.loading  #page > * { opacity: 0; }
+#page { color: #999; font-family: 'Open Sans'; background: #FFF url(elements/weather/main-border.png) no-repeat 567px 54px; position: relative; z-index: 1; }
+
+.kb-slide{
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+}
+
+.kb-slide img{
+    position: relative;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+}
+
+</style>
+<script src="inc/js/controller.js"></script>
+<script>
+var module = (function(){
+	var indexUrl = '/mnt/Gallery/';
+	var ignore = ['save%20the%20date'];
+	var images = [];
+	
+	function init(callback){
+		yepnope({
+			load: [
+				'inc/js/jquery.easing.min.js',
+				'inc/kenburns/kenburns.js'
+			],
+			complete: function(){ getData(); }
+		});
+	}
+		
+	function getData(){
+		if (window.location.toString().indexOf('refresh') > 0){
+			storeWithExpiration.expire('photos-kenburns');
+		}
+		
+		var data = storeWithExpiration.get('photos-kenburns');
+		if (data) {
+			console.log('get from local storage');
+			images = data;
+			load();
+			return;
+		}
+		
+		console.log('get from remote api');
+		
+		$.ajax({
+			url: indexUrl,
+			success: function(data){
+				console.log(data);
+				//images = data.replace(/T:\\Pictures\\/ig, '/mnt/').replace(/\\/ig,'/').split('\n');
+				images = data;
+				console.log(images);
+				load();
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log('error',jqXHR, textStatus, errorThrown);
+				images = ['http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-1.jpg',
+						'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-1.jpg',
+						'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-2.jpg',
+						'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-3.jpg',
+						'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-1.jpg',
+						'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-2.jpg',
+						'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-3.jpg',
+						'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-2.jpg',
+						'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-3.jpg'
+				];
+				load();
+			}
+		});		
+	}
+	
+	function load(){
+		console.log('images', images);
+				
+		$(function(){
+			images.sort(function() { return 0.5 - Math.random(); });
+			$("#page").Kenburns({
+				images: images,
+				scale:1,
+				duration:6000,
+				fadeSpeed:800,
+				ease3d: 'ease-out'
+			})
+			
+			controller.loading(false);
+		});	
+	}
+	
+	return {
+		init: init
+	}
+}());	
+</script>
+</head>
+
+<body>
+<div id="page">
+	<!--Time Bar-->
+	<div id="progress-back" class="load-item">
+		<div id="progress-bar"></div>
+	</div>
+</div>
+</body>
+</html>

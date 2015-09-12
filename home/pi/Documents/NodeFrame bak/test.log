@@ -1,0 +1,95 @@
+Listening on port 8080
+err { [Error: Command failed: [1:1:61138756:ERROR:nss_util.cc(692)] Failed to load NSS libraries.
+
+(chromium:2552): Gtk-WARNING **: cannot open display: 
+] killed: false, code: 1, signal: null }
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+turnOn
+Listening on port 8080
+Open {}
+Open {}
+turnOn
+Listening on port 8080
+Open {}
+Open {}
+turnOn
+Listening on port 8080
+Open {}
+Open {}
+turnOn
+Listening on port 8080
+Open {}
+Open {}
+Listening on port 8080
+Open {}
+Open {}
+monitor is: on
+turnOff
+CB - Monitor is: off
+turnOn
+CB - Monitor is: on
+turnOff
+CB - Monitor is: off
+turnOn
+CB - Monitor is: on
+turnOff
+CB - Monitor is: off
+turnOn
+CB - Monitor is: on
+turnOff
+CB - Monitor is: off
+turnOn
+CB - Monitor is: on
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }

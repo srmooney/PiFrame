@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Untitled Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--<link href="inc/style/base.css" rel="stylesheet" type="text/css" />-->
+    <style type="text/css">
+    <!--
+    a.active { font-weight: bold; }
+	#screen { width: 200px; height: 100px; background: #090; }
+	#screen.off { background: #C30; }
+	
+    /* Basic Structure */
+    -->
+    </style>
+    <script src="/socket.io/socket.io.js"> </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/inc/js/jquery.min.js"><\/script>')</script>
+    <script src="/inc/js/controller.js"></script>
+    <script>
+	/*
+		var controller = (function(){
+			var socket = io.connect();
+			//socket.emit('frame');
+			socket.emit('remote', {activePage: 'My-new-url.html'});
+			socket.on('frame', function(data){
+				console.log('frame', data);
+				
+				if (data.action){
+					switch(data.action){
+						case 'GoTo':
+							socket.emit('remote', { activePage: data.url });
+							break;
+						default:
+					}			
+				}
+				
+			});
+		})();
+	*/
+	</script>
+    <script>
+    var socket = io.connect();
+    socket.on('connect', function(data){
+    //socket.emit('remote');
+    }).on('remote', function(data){
+		  console.log(data);
+		  
+		if (data.activePage){
+			$('a').removeClass('active');
+			$('a[href="'+ data.activePage +'"]').addClass('active');
+		}
+		if (data.screenStatus){
+			$('#screen').removeClass('on off').addClass(data.screenStatus.toLowerCase());			
+		}
+		  
+		  $('body').append('<p>'+ JSON.stringify(data) +'</p>');
+	});
+	  
+	$(function(){
+
+		var menuHtml = ['<nav id="menu"><ul>'];
+		//var currentPage = Page.getCurrent();
+		$.each(controller.Page.pages, function(index,value){
+			if (value.menuName){				
+				menuHtml.push('<li><a href="'+ value.url +'" data-action="GoTo" class="">'+ value.menuName +'</a></li>');
+			}
+		});
+		menuHtml.push('</ul></nav>');
+		$('body').append(menuHtml.join(''));
+		var menu = $('#menu');
+		
+		$('body').on('click', 'a', function(e){
+			e.preventDefault();
+			var $this = $(this);
+			var action = $this.attr('data-action');
+			var data = null;
+			switch(action){
+				case 'GoTo':
+					data = { action:action, url:$this.attr('href')}
+					break;
+			}
+			console.log('data', data); 
+			//return;
+			if (data){
+				console.log('send');
+				socket.emit('frame', data);
+			}
+		}).on('click', '#screen', function(e){
+			socket.emit('server', {action:'ToggleScreen'});
+		});
+	});
+	  
+    </script>
+    
+    
+</head >
+
+<body>
+<div id="wrapper">
+	Remote
+    <p><a href="My-new-url.html" class="change-page" data-action="GoTo">Change Page 1</a></p>
+    <p><a href="My-new-url-1.html" class="change-page" data-action="GoTo">Change Page 2</a></p>
+    <p><a href="My-new-url.html-2" class="change-page" data-action="GoTo">Change Page 3</a></p>
+    <div id="screen">Screen</div>
+    <input type="text" id="sleep" value="" />
+	<header role="banner">
+    </header>
+    <article id="content" role="article">
+    </article>
+    <footer>
+    </footer>
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" name="spacer" id="spacer" />
+</div>
+</body>
+</html>

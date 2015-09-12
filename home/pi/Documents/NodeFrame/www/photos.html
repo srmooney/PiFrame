@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Photos</title>
+<link href="inc/style/base.css" rel="stylesheet" />
+<style>
+html, body { height: 100%; }
+#page { background: none; }
+body.loading  #page > * { opacity: 0; }
+</style>
+<script src="inc/js/controller.js"></script>
+<script>
+
+var module = (function(){
+	//var indexUrl = '/inc/proxy.ashx?url=http://tower:8080/file_browser?dir=/mnt/user/Media/Pictures/Gallery';
+	//var indexUrl = '/inc/proxy.ashx?url=http://192.168.0.110:8080/file_browser?dir=/mnt/user/Media/Pictures/Gallery';
+	//var indexUrl = '/mnt/Gallery/photos.txt';
+	var indexUrl = '/mnt/Gallery/';
+	var drivePath = 'file:///P:/';
+	var ignore = ['save%20the%20date','disabled'];
+	var urls = [];
+	var images = [];
+	var processed = 0;
+	
+	function init(callback){
+		yepnope({
+			load: [
+				'/inc/supersized/supersized.css',
+				'/inc/supersized/supersized.3.2.7.js'
+			],
+			complete: function(){ getData(); }
+		});
+	}
+		
+	function getData(){
+		if (window.location.toString().indexOf('refresh') > 0){
+			storeWithExpiration.expire('photos');
+		}
+		
+		var data = storeWithExpiration.get('photos');
+		if (data && data.length > 0) {
+			//console.log('get from local storage');
+			images = data;
+			load();
+			return;
+		}
+		
+		console.log('get from remote api');
+		
+		$.ajax({
+			url: indexUrl,
+			success: function(data){
+				//console.log(data);
+				//images = data.replace(/T:\\Pictures\\/ig, '/mnt/').replace(/\\/ig,'/').split('\n');\
+				if (data.length == 0){
+					window.config.mockjax = true;
+					load();
+				}
+				images = [];
+				$.each(data, function(index,value){
+					images.push({image: value});
+				});				
+				var expire = (Date.today().addDays(1) - Date.today());
+				storeWithExpiration.set('photos', images, expire);
+				load();
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				//console.log('error',jqXHR, textStatus, errorThrown);
+				window.config.mockjax = true;
+				load();
+			}
+		});	
+	}
+	
+	
+	function load(){
+		//console.log('images', images);
+		var refreshInterval = (60 * 60 * 1000);
+		var socket = io.connect();
+		
+		$(function(){
+			theme = {
+				_init : function(){
+					api.nextSlide();
+				},
+				beforeAnimation: function(){
+					if (!theme.loaded){
+						controller.loading(false);
+						theme.loaded = true;
+					}
+				},
+				afterAnimation: function(){
+					if (vars.is_paused){ api.playToggle(); }
+					if (!vars.is_paused){ theme.progressBar(); }
+					socket.emit('remote', {image: images[vars.current_slide-1].image});
+				},
+				progressBar: function(){
+					//$('#progress-bar').stop().css({left : -$(window).width()}).animate({ left:0 }, api.options.slide_interval);
+				},
+				loaded: false
+			};
+			
+			if (window.config.mockjax){	
+				images = [
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-1.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-1.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-2.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/kazvan-3.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-1.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-2.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/wojno-3.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-2.jpg'},
+					{image:'http://buildinternet.s3.amazonaws.com/projects/supersized/3.2/slides/shaden-3.jpg'}
+				];
+			}
+			//else {
+			//	var myImages = [];
+			//	$.each(images, function(index,value){
+			//		myImages.push({image: value});
+			//	});
+			//}
+			
+			//images.shuffle();
+			
+			if (refreshInterval > 0){
+				//images.shuffle();
+				//images.shuffle();
+				images = shuffleArray(images);
+				var maxLength = Math.floor(refreshInterval/window.config.photoInterval);
+				//console.log('maxLength', refreshInterval, window.config.photoInterval, maxLength);
+				if (images.length > maxLength) { images.length = maxLength; }
+			}
+			console.log('images', images);
+			/**/
+			$.supersized({
+					autoplay				: 	false,
+					start_slide				: 	0,
+					slide_interval          :   window.config.photoInterval,		// Length between transitions
+					transition              :   1, 			// 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+					transition_speed		:	0,		// Speed of transition
+					slide_links				:	false,	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
+					slides 					:  	images,
+					keyboard_nav			: 	0,
+					container				:	'#page'	
+			});
+			$('#supersized').appendTo('#page');
+			
+			controller.loading(false);
+			//console.log('loaded');
+			if (refreshInterval > 0){ window.setTimeout(function(){window.location = window.location; }, refreshInterval); }
+		});	
+	}
+	
+	
+	/**
+ * Randomize array element order in-place.
+ * Using Fisher-Yates shuffle algorithm.
+ */
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+	return {
+		init: init
+	}
+}());	
+</script>
+</head>
+
+<body>
+<div id="page">
+	<!--Time Bar
+	<div id="progress-back" class="load-item">
+		<div id="progress-bar"></div>
+	</div>-->
+</div>
+</body>
+</html>

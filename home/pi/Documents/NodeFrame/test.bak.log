@@ -1,0 +1,1110 @@
+Listening on port 8080
+err { [Error: Command failed: [1:1:61138756:ERROR:nss_util.cc(692)] Failed to load NSS libraries.
+
+(chromium:2552): Gtk-WARNING **: cannot open display: 
+] killed: false, code: 1, signal: null }
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+Listening on port 8080
+turnOn
+Listening on port 8080
+Open {}
+Open {}
+turnOn
+Listening on port 8080
+Open {}
+Open {}
+turnOn
+Listening on port 8080
+Open {}
+Open {}
+turnOn
+Listening on port 8080
+Open {}
+Open {}
+Listening on port 8080
+Open {}
+Open {}
+monitor is: on
+turnOff
+CB - Monitor is: off
+turnOn
+CB - Monitor is: on
+turnOff
+CB - Monitor is: off
+turnOn
+CB - Monitor is: on
+turnOff
+CB - Monitor is: off
+turnOn
+CB - Monitor is: on
+turnOff
+CB - Monitor is: off
+turnOn
+CB - Monitor is: on
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+onUpdate { jsonrpc: '2.0',
+  method: 'VideoLibrary.OnUpdate',
+  params: { data: { item: [Object] }, sender: 'xbmc' } }
+Listening on port 8080
+Open {}
+Open {}
+error: Error: Command failed: 
+monitor is: on
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+Listening on port 8080
+error: Error: Command failed: 
+monitor is: on
+Open {}
+Open {}
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+Listening on port 8080
+Open {}
+Open {}
+error: Error: Command failed: 
+monitor is: on
+test time: 6
+test time: 6
+test time: 6
+test time: 6
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 7
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 8
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 9
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 10
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 11
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 12
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 13
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 14
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 15
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 16
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+Listening on port 8080
+error: Error: Command failed: 
+monitor is: on
+Open {}
+Open {}
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+test time: 17
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+test time: 17
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: true, item: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: true, item: [Object] }, sender: 'xbmc' } }
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+test time: 18
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: true, item: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: true, item: [Object] }, sender: 'xbmc' } }
+test time: 18
+test time: 19
+test time: 19
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: true, item: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: true, item: [Object] }, sender: 'xbmc' } }
+test time: 19
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+test time: 19
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: false, item: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: false, item: [Object] }, sender: 'xbmc' } }
+test time: 19
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 20
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+test time: 21
+Listening on port 8080
+error: Error: Command failed: 
+monitor is: on
+Open {}
+Open {}
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnPlay',
+  params: { data: { item: [Object], player: [Object] }, sender: 'xbmc' } }
+test time: 21
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: false, item: [Object] }, sender: 'xbmc' } }
+onPlay { jsonrpc: '2.0',
+  method: 'Player.OnStop',
+  params: { data: { end: false, item: [Object] }, sender: 'xbmc' } }
